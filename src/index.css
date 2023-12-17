@@ -51,7 +51,7 @@ body {
   height: 64px;
 }
 main {
-  height: 85vh;
+  min-height: 85vh; /* Change to min-height for flexibility */
   overflow-y: scroll;
   background-color: transparent !important;
 }

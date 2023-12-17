@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
 import { BiEdit } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
 import { AiFillDelete } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/product/productSlice";
 import { Link } from "react-router-dom";
 const columns = [
@@ -13,22 +13,21 @@ const columns = [
   {
     title: "Title",
     dataIndex: "title",
-    sorter: (a, b) => compareString(a.title, b.title),
+    sorter: (a, b) => a.title.length - b.title.length,
   },
   {
     title: "Brand",
     dataIndex: "brand",
-    sorter: (a, b) => compareString(a.brand, b.brand),
+    sorter: (a, b) => a.brand.length - b.brand.length,
   },
   {
     title: "Category",
     dataIndex: "category",
-    sorter: (a, b) => compareString(a.category, b.category),
+    sorter: (a, b) => a.category.length - b.category.length,
   },
   {
     title: "Color",
     dataIndex: "color",
-    sorter: (a, b) => compareString(a.color, b.color),
   },
   {
     title: "Price",
@@ -40,14 +39,6 @@ const columns = [
     dataIndex: "action",
   },
 ];
-
-const compareString = (a, b) => {
-  const stringA = String(a).toLowerCase(); // Convert to string
-  const stringB = String(b).toLowerCase(); // Convert to string
-  if (stringA < stringB) return -1;
-  if (stringA > stringB) return 1;
-  return 0;
-};
 
 const Productlist = () => {
   const dispatch = useDispatch();
@@ -76,7 +67,7 @@ const Productlist = () => {
       ),
     });
   }
-
+  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Products</h3>
