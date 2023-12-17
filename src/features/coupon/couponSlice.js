@@ -5,7 +5,7 @@ export const getAllCoupons = createAsyncThunk(
   "coupon/get-coupons",
   async (thunkAPI) => {
     try {
-      const response = await couponService.getCoupons();
+      const response = await couponService.getAllCoupons();
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
