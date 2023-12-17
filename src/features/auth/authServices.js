@@ -1,12 +1,14 @@
+// authServices.js
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
+
 const getTokenFromLocalStorage = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
 
 const config = {
-  Headers: {
-    Authorization: "Bearer ${getTokenFromLocalStorage.token}",
+  headers: {
+    Authorization: `Bearer ${getTokenFromLocalStorage.token}`,
     Accept: "application/json",
   },
 };
@@ -18,11 +20,17 @@ const login = async (user) => {
   }
   return response.data;
 };
-const getOrders = async () => {
-  const response = await axios.get(`${base_url}user/getallorders`, config);
 
-  return response.data;
+const getOrders = async () => {
+  try {
+    const response = await axios.get(`${base_url}user/getallorders`, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    throw error; // Re-throw the error to be caught by the Redux rejection logic
+  }
 };
+
 const authService = {
   login,
   getOrders,
