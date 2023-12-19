@@ -8,7 +8,7 @@ const getColors = async () => {
   return response.data;
 };
 const createColor = async (color) => {
-  const response = await axios.post(`${base_url}color/`, color, config);
+  const response = await axios.post(`${base_url}color`, color, config);
 
   return response.data;
 };
