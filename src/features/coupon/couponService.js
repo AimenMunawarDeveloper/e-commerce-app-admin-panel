@@ -7,6 +7,46 @@ const getCoupons = async () => {
 
   return response.data;
 };
+<<<<<<< HEAD
+=======
+
+const createCoupons = async (coupon) => {
+  const response = await axios.post(`${base_url}coupon/`, coupon, config);
+
+  return response.data;
+};
+const updateCoupon = async (coupon) => {
+  const response = await axios.put(
+    `${base_url}coupon/${coupon.id}`,
+    {
+      name: coupon.couponData.name,
+      expiry: coupon.couponData.expiry,
+      discount: coupon.couponData.discount,
+    },
+    config
+  );
+
+  return response.data;
+};
+const getCoupon = async (id) => {
+  const response = await axios.get(`${base_url}coupon/${id}`, config);
+
+  return response.data;
+};
+
+const deleteCoupon = async (id) => {
+  const response = await axios.delete(`${base_url}coupon/${id}`, config);
+
+  return response.data;
+};
+const couponService = {
+  getCoupons,
+  createCoupons,
+  deleteCoupon,
+  getCoupon,
+  updateCoupon,
+};
+>>>>>>> e2ca45db5f33883e6dd3820e69b33822f661d197
 
 const createCoupons = async (coupon) => {
   const response = await axios.post(`${base_url}coupon/`, coupon, config);

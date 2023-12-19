@@ -26,4 +26,8 @@ export const Page404 = () => {
       </div>
     </section>
   );
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> e2ca45db5f33883e6dd3820e69b33822f661d197

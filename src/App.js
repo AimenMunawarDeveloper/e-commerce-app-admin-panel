@@ -24,10 +24,12 @@ import Couponlist from "./pages/Couponlist";
 import AddCoupon from "./pages/AddCoupon";
 import ViewEnq from "./pages/ViewEnq";
 import ViewOrder from "./pages/ViewOrder";
+import { Page404 } from "./pages/Page404";
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/404" element={<Page404 />} />
         <Route path="/" element={<Login />} />
         <Route path="/reset-password" element={<Resetpassword />} />
         <Route path="/forgot-password" element={<Forgotpassword />} />

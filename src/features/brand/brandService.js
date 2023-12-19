@@ -1,6 +1,7 @@
 import axios from "axios";
 import { config } from "../../utils/axiosconfig";
 import { base_url } from "../../utils/base_url";
+
 const getBrands = async () => {
   const response = await axios.get(`${base_url}brand/`);
 
@@ -8,8 +9,7 @@ const getBrands = async () => {
 };
 
 const createBrand = async (brand) => {
-  const response = await axios.post(`${base_url}brand/`, brand, config);
-
+  const response = await axios.post(`${base_url}brand`, brand, config);
   return response.data;
 };
 const updateBrand = async (brand) => {
@@ -18,7 +18,6 @@ const updateBrand = async (brand) => {
     { title: brand.brandData.title },
     config
   );
-
   return response.data;
 };
 const getBrand = async (id) => {
