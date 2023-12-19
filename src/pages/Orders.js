@@ -32,27 +32,25 @@ const columns = [
     dataIndex: "action",
   },
 ];
+
 const Orders = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrders());
   }, []);
-
   const orderState = useSelector((state) => state.auth.orders);
 
   const data1 = [];
   for (let i = 0; i < orderState.length; i++) {
-    const products = orderState[i].products || []; // Ensure products is an array
-
     data1.push({
       key: i + 1,
       name: orderState[i].orderby.firstname,
-      product: products.map((item, j) => (
-        <ul key={j}>
-          <li>{item.product.title}</li>
-        </ul>
-      )),
-      amount: orderState[i].paymentIntent?.amount || "N/A", // Use optional chaining to handle undefined
+      product: (
+        <Link to={`/admin/order/${orderState[i].orderby._id}`}>
+          View Orders
+        </Link>
+      ),
+      amount: orderState[i].paymentIntent.amount,
       date: new Date(orderState[i].createdAt).toLocaleString(),
       action: (
         <>
@@ -66,13 +64,10 @@ const Orders = () => {
       ),
     });
   }
-
   return (
     <div>
       <h3 className="mb-4 title">Orders</h3>
-      <div>
-        <Table columns={columns} dataSource={data1} />
-      </div>
+      <div>{<Table columns={columns} dataSource={data1} />}</div>
     </div>
   );
 };
