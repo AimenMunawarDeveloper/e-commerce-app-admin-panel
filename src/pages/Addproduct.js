@@ -26,6 +26,7 @@ let schema = yup.object().shape({
     .min(1, "Pick at least one color")
     .required("Color is Required"),
   quantity: yup.number().required("Quantity is Required"),
+  images: yup.array().min(1, "At least one image is required")
 });
 
 const Addproduct = () => {
@@ -83,21 +84,33 @@ const Addproduct = () => {
       tags: "",
       color: "",
       quantity: "",
-      images: "",
+      images: [],
     },
     validationSchema: schema,
     onSubmit: (values) => {
       dispatch(createProducts(values));
       formik.resetForm();
       setColor(null);
+      setImages([]);
       setTimeout(() => {
         dispatch(resetState());
       }, 3000);
     },
   });
+
+  const handleDrop = (acceptedFiles) => {
+    dispatch(uploadImg(acceptedFiles));
+    setImages((prevImages) => [...prevImages, ...acceptedFiles]);
+  };  
+
+  const handleImageDelete = (index) => {
+    const updatedImages = [...images];
+    updatedImages.splice(index, 1);
+    setImages(updatedImages);
+  };
+
   const handleColors = (e) => {
     setColor(e);
-    console.log(color);
   };
   return (
     <div>
@@ -223,35 +236,29 @@ const Addproduct = () => {
             {formik.touched.quantity && formik.errors.quantity}
           </div>
           <div className="bg-white border-1 p-5 text-center">
-            <Dropzone
-              onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}
-            >
+            <Dropzone onDrop={handleDrop}>
               {({ getRootProps, getInputProps }) => (
                 <section>
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
-                    <p>
-                      Drag 'n' drop some files here, or click to select files
-                    </p>
+                    <p>Drag 'n' drop some files here, or click to select files</p>
                   </div>
                 </section>
               )}
             </Dropzone>
           </div>
           <div className="showimages d-flex flex-wrap gap-3">
-            {imgState?.map((i, j) => {
-              return (
-                <div className=" position-relative" key={j}>
-                  <button
-                    type="button"
-                    onClick={() => dispatch(delImg(i.public_id))}
-                    className="btn-close position-absolute"
-                    style={{ top: "10px", right: "10px" }}
-                  ></button>
-                  <img src={i.url} alt="" width={200} height={200} />
-                </div>
-              );
-            })}
+            {images.map((file, index) => (
+              <div className="position-relative" key={index}>
+                <button
+                  type="button"
+                  onClick={() => handleImageDelete(index)}
+                  className="btn-close position-absolute"
+                  style={{ top: "10px", right: "10px" }}
+                ></button>
+                <img src={URL.createObjectURL(file)} alt="" width={200} height={200} />
+              </div>
+            ))}
           </div>
           <button
             className="btn btn-success border-0 rounded-3 my-5"

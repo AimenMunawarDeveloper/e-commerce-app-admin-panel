@@ -1,21 +1,6 @@
 import axios from "axios";
 import { config } from "../../utils/axiosconfig";
 import { base_url } from "../../utils/base_url";
-<<<<<<< HEAD
-=======
-
-const getTokenFromLocalStorage = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
-  : null;
-
-const config = {
-  headers: {
-    Authorization: `Bearer ${getTokenFromLocalStorage?.token}`,
-    Accept: "application/json",
-  },
-};
-
->>>>>>> e2ca45db5f33883e6dd3820e69b33822f661d197
 const login = async (user) => {
   const response = await axios.post(`${base_url}user/admin-login`, user);
   if (response.data) {
