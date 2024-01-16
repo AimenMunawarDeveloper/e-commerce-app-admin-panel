@@ -5,6 +5,7 @@ import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { getOrders } from "../features/auth/authSlice";
+
 const columns = [
   {
     title: "SNo",
@@ -26,7 +27,6 @@ const columns = [
     title: "Date",
     dataIndex: "date",
   },
-
   {
     title: "Action",
     dataIndex: "action",
@@ -39,6 +39,11 @@ const Orders = () => {
     dispatch(getOrders());
   }, []);
   const orderState = useSelector((state) => state.auth.orders);
+
+  // Add a check for null orderState
+  if (orderState === null) {
+    return null; // You can handle this case as needed
+  }
 
   const data1 = [];
   for (let i = 0; i < orderState.length; i++) {
@@ -64,6 +69,7 @@ const Orders = () => {
       ),
     });
   }
+
   return (
     <div>
       <h3 className="mb-4 title">Orders</h3>

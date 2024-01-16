@@ -87,11 +87,11 @@ const MainLayout = () => {
         },
       ],
     },
-    {
-      key: "orders",
-      icon: <FaClipboardList className="fs-4" />,
-      label: "Orders",
-    },
+    // {
+    //   key: "orders",
+    //   icon: <FaClipboardList className="fs-4" />,
+    //   label: "Orders",
+    // },
     {
       key: "marketing",
       icon: <RiCouponLine className="fs-4" />,
